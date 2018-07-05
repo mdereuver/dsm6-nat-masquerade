@@ -2,9 +2,9 @@
 
 For some reason Synology has a special look at iptables....
 
-Let Synology setup iptables by install and configure a VPN server. You don't need to use it, but installing and configure a basic PPTP VPN server, iptables wil be set up for you.
+Let Synology setup iptables by install and configure a VPN server. You don't need to use it, but installing and configure a basic PPTP VPN server, iptables will be setup for you.
 
-After that open a ssh connection as root with your NAS and check with: **iptables -L -v -t nat** if it is working. You will see something like:
+Then open a **ssh** connection as **root** with your NAS and check with: **iptables -L -v -t nat** if it is working. You will see something like:
 ```
 Chain PREROUTING (policy ACCEPT 4984 packets, 356K bytes)
  pkts bytes target     prot opt in     out     source               destination         
