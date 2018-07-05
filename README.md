@@ -2,9 +2,9 @@
 
 For some reason Synology has a special look at iptables....
 
-Let Synology setup iptables by install an configure a VPN server. You don't need to use it, but installing an configure a basic PPTP VPN server, iptables wil be set up for you.
+Let Synology setup iptables by install and configure a VPN server. You don't need to use it, but installing and configure a basic PPTP VPN server, iptables wil be set up for you.
 
-After that open a ssh connection as root with your NAS and check with: <b>iptables -L -v -t nat</b> if it is working. You wil see somthing like:
+After that open a ssh connection as root with your NAS and check with: **iptables -L -v -t nat** if it is working. You will see something like:
 ```
 Chain PREROUTING (policy ACCEPT 4984 packets, 356K bytes)
  pkts bytes target     prot opt in     out     source               destination         
@@ -23,4 +23,14 @@ Chain DEFAULT_POSTROUTING (1 references)
  pkts bytes target     prot opt in     out     source               destination         
     0     0 MASQUERADE  all  --  any    any     10.0.0.0/24          anywhere
 ```
-Now place script file <b>iptables_nat.sh</b> in /usr/local/etc/rc.d/ The script will be run at startup and not oveerwritten by a DSM update.
+Now place script file **iptables_nat.sh** in **/usr/local/etc/rc.d/** The script will be run at startup and not removed by a DSM update.
+
+You can insert the new NAT rule with: **/usr/local/etc/rc.d/iptables_nat.sh start**
+
+Check the result with: **iptables -L -v -t nat** Now you will see:
+```
+Chain DEFAULT_POSTROUTING (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+    0     0 MASQUERADE  all  --  any    any     10.0.0.0/24          anywhere            
+ 4172  248K MASQUERADE  all  --  any    eth0    192.168.10.0/24      anywhere
+```
